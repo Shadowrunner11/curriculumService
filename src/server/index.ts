@@ -7,3 +7,7 @@ export const server = express()
 server
   .use(PinoHttp())
   .use('/api/v1', mainMiniApp)
+  .get('/holamundo', (_, res) =>{
+      res.send('hola mundo')
+  } )
+
