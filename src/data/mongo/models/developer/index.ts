@@ -72,7 +72,7 @@ const developerSchema = new Schema<Developer>(
     socialData: { type: [socialDataSchema] },
     tools: { type: [hardSkilSchema] },
     globalTags: { type: [tagSchema] },
-    principalRoles: [String],
+    roles: [String],
   },
   { timestamps: true }
 );

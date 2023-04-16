@@ -1,36 +1,36 @@
-import type { Schema } from 'express-validator';
-import type { Developer } from '../mongo/models/devolper';
+import type { Schema } from "express-validator";
+import type { Developer } from "../mongo/models/developer/interfaces";
 
 export const developerValidationSchema: Schema<keyof Developer> = {
   username: {
-    isString: {bail: true}
+    isString: { bail: true },
   },
   descriptions: {
-    isArray: {bail: true}
+    isArray: { bail: true },
   },
   firstname: {
-    isAlpha: {bail: true}
+    isAlpha: { bail: true },
   },
   lastname: {
-    isAlpha: {bail: true}
+    isAlpha: { bail: true },
   },
   email: {
-    isEmail: {bail: true},
+    isEmail: { bail: true },
   },
-  birthDay:{
+  birthDay: {
     optional: true,
-    isDate: true
+    isDate: true,
   },
-  languages:{
+  languages: {
     optional: true,
-    isObject: true
+    isObject: true,
   },
   frameworks: {
     optional: true,
-    isArray: true
+    isArray: true,
   },
   tools: {
     optional: true,
-    isArray: true
-  }
-}
+    isArray: true,
+  },
+};

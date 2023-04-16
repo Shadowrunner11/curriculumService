@@ -82,7 +82,8 @@ export interface Developer {
   phones?: PhoneWithSecondaryData;
   photos?: PhotoWithSecondaryData;
   globalTags: Tag[];
-  principalRoles: string[];
+  mainRol: string;
+  roles: string[];
   languages: string[];
 }
 
