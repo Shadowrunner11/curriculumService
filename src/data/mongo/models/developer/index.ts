@@ -31,10 +31,12 @@ const locationSchema = new Schema<Location>({
   country: String,
 });
 
+// TODO: add relative level, such as senior or junior
 const hardSkilSchema = new Schema<HardSkill>({
   name: String,
   percentage: Number,
-  yearOfExperience: Number,
+  yearsOfExperience: Number,
+  level: String,
 });
 
 const phoneBaseSchema = new Schema<Phone>({
@@ -70,7 +72,7 @@ const tagSchema = new Schema<Tag>({
   value: String,
 });
 
-const developerSchema = new Schema<Developer>(
+export const developerSchema = new Schema<Developer>(
   {
     username: { type: String, unique: true },
     availabletoTravel: Boolean,

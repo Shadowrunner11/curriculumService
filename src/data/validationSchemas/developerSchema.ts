@@ -6,7 +6,7 @@ export const developerValidationSchema: Schema<keyof Developer> = {
     isString: { bail: true },
   },
   descriptions: {
-    isArray: { bail: true },
+    isObject: { bail: true },
   },
   firstname: {
     isAlpha: { bail: true },
@@ -21,15 +21,15 @@ export const developerValidationSchema: Schema<keyof Developer> = {
     optional: true,
     isDate: true,
   },
-  languages: {
-    optional: true,
-    isObject: true,
-  },
   frameworks: {
     optional: true,
     isArray: true,
   },
   tools: {
+    optional: true,
+    isArray: true,
+  },
+  devLanguages: {
     optional: true,
     isArray: true,
   },

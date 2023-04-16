@@ -4,7 +4,11 @@ import { developerValidationSchema } from "../data/validationSchemas/developerSc
 import { validation } from "../middlewares/validation";
 import type { Developer } from "../data/mongo/models/developer/interfaces";
 import { DeveloperService } from "../services/developer.service";
-import { developerModel } from "../data/mongo/models/developer";
+import {
+  developerModel,
+  developerSchema,
+} from "../data/mongo/models/developer";
+import { basicClean } from "../middlewares/clean";
 
 export const mainMiniApp = Router();
 
@@ -19,13 +23,18 @@ mainMiniApp
   .post("/report", (_, res) => {
     res.type("text/csv").send();
   })
-  .post("/", ...middlewaresValidation, async (res: Response, req: Request) => {
-    const body: Developer = req.body;
+  .post(
+    "/",
+    basicClean(developerSchema.obj),
+    ...middlewaresValidation,
+    async (req: Request, res: Response) => {
+      const body: Developer = req.body;
 
-    await developerService.createDeveloper(body);
+      await developerService.createDeveloper(body);
 
-    res.json(body);
-  })
+      res.json(body);
+    }
+  )
   .post(
     "/testValidation",
     ...middlewaresValidation,
