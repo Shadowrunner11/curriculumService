@@ -25,8 +25,9 @@ export interface Experiences {
 export interface HardSkill {
   name: string;
   percentage: string;
-  yearOfExperience: string;
+  yearsOfExperience: string;
   tags: Tag[];
+  level?: string;
 }
 
 // TODO: take model from linkedin
