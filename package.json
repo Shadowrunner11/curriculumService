@@ -6,7 +6,9 @@
   "license": "MIT",
   "scripts": {
     "dev": "nodemon --exec node -r @swc-node/register -r dotenv/config ./src/index.ts | pino-pretty",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "build": "tsc",
+    "start": "node -r dotenv/config ./dist/index.js"
   },
   "dependencies": {
     "csv-writer": "^1.6.0",

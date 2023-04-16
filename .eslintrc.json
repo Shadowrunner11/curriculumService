@@ -17,5 +17,6 @@
         "sourceType": "module"
     },
     "rules": {
-    }
+    },
+    "ignorePatterns": ["dist/", "node_modules/"]
 }
