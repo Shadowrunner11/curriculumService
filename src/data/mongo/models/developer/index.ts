@@ -16,10 +16,15 @@ const socialDataSchema = new Schema<SocialData>({
   url: String,
 });
 
+const descriptionBaseSchema = new Schema<Description>({
+  text: String,
+  type: String,
+});
+
 const descriptionSchema = new Schema<DescriptionWithSecondaryData>({
   text: String,
   type: String,
-  secondaryData: [Description],
+  secondaryData: [descriptionBaseSchema],
 });
 
 const locationSchema = new Schema<Location>({
@@ -32,19 +37,31 @@ const hardSkilSchema = new Schema<HardSkill>({
   yearOfExperience: Number,
 });
 
+const phoneBaseSchema = new Schema<Phone>({
+  areaCode: String,
+  isDefault: Boolean,
+  number: Number,
+  type: String,
+});
+
 const phoneSchema = new Schema<PhoneWithSecondaryData>({
   areaCode: String,
   isDefault: Boolean,
   number: Number,
   type: String,
-  secondaryData: [Phone],
+  secondaryData: [phoneBaseSchema],
+});
+
+const photoBaseSchema = new Schema<Photo>({
+  type: String,
+  url: String,
 });
 
 const photoSchema = new Schema<PhotoWithSecondaryData>({
   isDefault: Boolean,
   type: String,
   url: String,
-  secondaryData: [Photo],
+  secondaryData: [photoBaseSchema],
 });
 
 const tagSchema = new Schema<Tag>({
