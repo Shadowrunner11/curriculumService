@@ -34,28 +34,35 @@ export interface Certifications {
   [x: string]: string;
 }
 
-export interface Phone {
+export type WithSecondaryData<T> = T & { secondaryData?: T[] };
+
+export interface IPhone {
   number: string;
   areaCode: string;
   type: string;
   isDefault: boolean;
 }
 
+export type PhoneWithSecondaryData = WithSecondaryData<IPhone>;
+
 export interface Location {
   country: string;
 }
 
-export interface Description {
+export interface IDescription {
   text: string;
   type: string;
-  isDefault?: boolean;
 }
 
-export interface Photo {
+export interface IPhoto {
   url: string;
   type: string;
   isDefault?: boolean;
 }
+
+export type DescriptionWithSecondaryData = WithSecondaryData<IDescription>;
+
+export type PhotoWithSecondaryData = WithSecondaryData<IPhoto>;
 
 export interface Tag {
   label: string;
@@ -63,12 +70,16 @@ export interface Tag {
   related: string[];
 }
 
+export interface IEmail {
+  direction: string;
+}
+
 export interface Developer {
   username: string;
-  descriptions: Description[];
+  descriptions: DescriptionWithSecondaryData;
   firstname: string;
   lastname: string;
-  email: string;
+  email: WithSecondaryData<IEmail>;
   birthDay?: string;
   location?: Location;
   availabletoTravel?: boolean;
@@ -76,14 +87,15 @@ export interface Developer {
   certifications?: Certifications[];
   socialData?: SocialData[];
   identityDocuments?: IdentityDocuments[];
-  languages?: HardSkill[];
+  devLanguages?: HardSkill[];
   frameworks?: HardSkill[];
   tools?: HardSkill[];
   customHardSkills?: HardSkill[];
-  phones?: Phone[];
-  photos?: Photo[];
+  phones?: PhoneWithSecondaryData;
+  photos?: PhotoWithSecondaryData;
   globalTags: Tag[];
   principalRoles: string[];
+  languages: string[];
 }
 
 const socialDataSchema = new Schema<SocialData>({
@@ -91,10 +103,15 @@ const socialDataSchema = new Schema<SocialData>({
   url: String,
 });
 
-const descriptionSchema = new Schema<Description>({
-  isDefault: Boolean,
+class Description implements IDescription {
+  text: string;
+  type: string;
+}
+
+const descriptionSchema = new Schema<DescriptionWithSecondaryData>({
   text: String,
   type: String,
+  secondaryData: [Description],
 });
 
 const locationSchema = new Schema<Location>({
@@ -107,17 +124,32 @@ const hardSkilSchema = new Schema<HardSkill>({
   yearOfExperience: Number,
 });
 
-const phoneSchema = new Schema<Phone>({
+export class Phone implements IPhone {
+  number: string;
+  areaCode: string;
+  type: string;
+  isDefault: boolean;
+}
+
+const phoneSchema = new Schema<PhoneWithSecondaryData>({
   areaCode: String,
   isDefault: Boolean,
   number: Number,
   type: String,
+  secondaryData: [Phone],
 });
 
-const photoSchema = new Schema<Photo>({
+export class Photo implements IPhoto {
+  url: string;
+  type: string;
+  isDefault?: boolean | undefined;
+}
+
+const photoSchema = new Schema<PhotoWithSecondaryData>({
   isDefault: Boolean,
   type: String,
   url: String,
+  secondaryData: [Photo],
 });
 
 const tagSchema = new Schema<Tag>({
@@ -126,27 +158,22 @@ const tagSchema = new Schema<Tag>({
   value: String,
 });
 
-// Consider changing models like these
-/* 
-emai:{
- principal: String,
- secondaries: String[]
-}*/
 const developerSchema = new Schema<Developer>(
   {
     username: { type: String, unique: true },
     availabletoTravel: Boolean,
     birthDay: Date,
     customHardSkills: { type: [hardSkilSchema] },
-    descriptions: { type: [descriptionSchema] },
+    descriptions: { type: descriptionSchema },
     email: String,
     firstname: String,
     lastname: String,
     frameworks: { type: [hardSkilSchema] },
-    languages: { type: [hardSkilSchema] },
+    devLanguages: { type: [hardSkilSchema] },
+    languages: [String],
     location: { type: locationSchema },
-    phones: { type: [phoneSchema] },
-    photos: { type: [photoSchema] },
+    phones: { type: phoneSchema },
+    photos: { type: photoSchema },
     socialData: { type: [socialDataSchema] },
     tools: { type: [hardSkilSchema] },
     globalTags: { type: [tagSchema] },
