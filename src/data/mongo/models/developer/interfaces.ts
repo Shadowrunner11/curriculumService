@@ -24,8 +24,8 @@ export interface Experiences {
 // butr for another develepor not
 export interface HardSkill {
   name: string;
-  percentage: string;
-  yearsOfExperience: string;
+  percentage: number;
+  yearsOfExperience: number;
   tags: Tag[];
   level?: string;
 }
