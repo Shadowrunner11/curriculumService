@@ -20,8 +20,18 @@ const middlewaresValidation = [
 ];
 
 mainMiniApp
-  .post("/report", (_, res) => {
-    res.type("text/csv").send();
+  .post("/report", async (_, res) => {
+    const report = await developerService.createReport();
+
+    res.type("text/csv").send(report);
+  })
+  .get("/:username", async (req, res) => {
+    const { username } = req.params;
+    const report = await developerService.createDevLangaugesReportByDev(
+      username
+    );
+
+    res.type("text/csv").send(report);
   })
   .post(
     "/",
