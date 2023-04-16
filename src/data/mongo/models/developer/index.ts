@@ -1,9 +1,11 @@
 import { Schema, model } from "mongoose";
 import type {
   DescriptionWithSecondaryData,
+  Developer,
   HardSkill,
   Location,
   PhoneWithSecondaryData,
+  PhotoWithSecondaryData,
   SocialData,
   Tag,
 } from "./interfaces";
@@ -75,4 +77,4 @@ const developerSchema = new Schema<Developer>(
   { timestamps: true }
 );
 
-export const devloperModel = model<Developer>("developer", developerSchema);
+export const developerModel = model<Developer>("developer", developerSchema);
