@@ -20,7 +20,7 @@ const middlewaresValidation = [
 ];
 
 mainMiniApp
-  .post("/report", async (_, res) => {
+  .get("/report", async (_, res) => {
     const report = await developerService.createReport();
 
     res.type("text/csv").send(report);
