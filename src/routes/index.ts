@@ -1,5 +1,8 @@
-import { Router } from "express";
+import { Request, Response, Router } from "express";
 import { Developer } from "../data/mongo/models/devolper";
+import { checkSchema, validationResult } from "express-validator";
+import { developerValidationSchema } from "../data/validationSchemas/developerSchema";
+import { validation } from "../data/middlewares/validation";
 
 export const mainMiniApp = Router()
 
@@ -8,9 +11,13 @@ mainMiniApp
 
       res.type('text/csv').send()
   })
-  .post('/', (req, res)=>{
-      const body : Developer = req.body
+  .post(
+    '/testValidation', 
+    checkSchema(developerValidationSchema, ['body']), 
+    validation,
+    (req: Request, res: Response)=>{
+        const body : Developer = req.body
 
-     res.send('In process')
+        res.json(body)
   })
 

@@ -1,27 +1,36 @@
 import type { Schema } from 'express-validator';
 import type { Developer } from '../mongo/models/devolper';
 
-export const developerValidationSchema = {
+export const developerValidationSchema: Schema<keyof Developer> = {
   username: {
-
+    isString: {bail: true}
   },
-  // descriptions: Description[],
-  // firstname: string,
-  // lastname: string,
+  descriptions: {
+    isArray: {bail: true}
+  },
+  firstname: {
+    isAlpha: {bail: true}
+  },
+  lastname: {
+    isAlpha: {bail: true}
+  },
   email: {
-    isEmail: true
+    isEmail: {bail: true},
   },
-  // birthDay: string,
-  // location:Location,
-  // availabletoTravel?: boolean,
-  // experiences?: Experiences[],
-  // certifications?: Certifications[],
-  // socialData?: SocialData[],
-  // identityDocuments?: IdentityDocuments[],
-  // languages?: HardSkill[],
-  // frameworks?: HardSkill[],
-  // tools?: HardSkill[],
-  // customHardSkills?: HardSkill[],
-  // phones?: Phone[],
-  // photos?: Photo[]
+  birthDay:{
+    optional: true,
+    isDate: true
+  },
+  languages:{
+    optional: true,
+    isObject: true
+  },
+  frameworks: {
+    optional: true,
+    isArray: true
+  },
+  tools: {
+    optional: true,
+    isArray: true
+  }
 }

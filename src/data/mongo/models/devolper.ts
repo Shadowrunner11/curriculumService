@@ -54,8 +54,8 @@ export interface Developer {
   firstname: string;
   lastname: string;
   email: string;
-  birthDay: string;
-  location:Location;
+  birthDay?: string;
+  location?:Location;
   availabletoTravel?: boolean,
   experiences?: Experiences[];
   certifications?: Certifications[];
